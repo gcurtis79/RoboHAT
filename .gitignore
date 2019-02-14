@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+#ignore (open?) files with ~ in name:
+*~
+*.pyc
+*.swp
