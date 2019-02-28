@@ -12,6 +12,7 @@ I will be adding the following:
     * 6-DOF IMU (MPU6050) translation
     
   * Mini development environment for compiling/uploading to the Atmega328pb
+    * Docker environment working well, includes a 'build.sh' that can use rsh to upload as well
   
   * Python examples to interface with the board which will include the following:
     * LetsRobot.tv Python3 module for easy integration to LetsRobot
