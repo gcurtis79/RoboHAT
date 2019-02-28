@@ -1,3 +1,4 @@
+Bear with me on this project, I'm very new to this stuff, but I enjoy the nearning process.  
 # RoboHAT
 This will be the repository of things needed to work with, or at least get started with, my RoboHAT Raspberry Pi HAT for robot control.
 
