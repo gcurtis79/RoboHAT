@@ -1,13 +1,16 @@
 FROM debian:stretch-slim
 
 # Version of arduino IDE
-ARG VERSION="1.8.5"
+ARG VERSION="1.8.8"
 
-# Version of Arduino IDE to download
-ENV ARDUINO_VERSION=$VERSION
+# Home directory
+ENV A_HOME="/root"
+
+# Binary directory
+ENV A_BIN_DIR="${A_HOME}/bin"
 
 # Where Arduino IDE should be installed
-ENV ARDUINO_DIR="/opt/arduino"
+ENV ARDUINO_DIR="${A_BIN_DIR}/arduino-ide"
 
 # Arduino built-in examples
 ENV ARDUINO_EXAMPLES="${ARDUINO_DIR}/examples"
@@ -18,24 +21,6 @@ ENV ARDUINO_HARDWARE="${ARDUINO_DIR}/hardware"
 # Arduino built-in libraries
 ENV ARDUINO_LIBS="${ARDUINO_DIR}/libraries"
 
-# Arduino tools
-ENV ARDUINO_TOOLS="${ARDUINO_HARDWARE}/tools"
-
-# Arduino tools-builder
-ENV ARDUINO_TOOLS_BUILDER="${ARDUINO_DIR}/tools-builder"
-
-# Arduino boards FQBN prefix
-ENV A_FQBN="arduino:avr"
-
-# Binary directory
-ENV A_BIN_DIR="/usr/local/bin"
-
-# Tools directory
-ENV A_TOOLS_DIR="/opt/tools"
-
-# Home directory
-ENV A_HOME="/root"
-
 # Shell
 SHELL ["/bin/bash","-c"]
 
@@ -43,28 +28,29 @@ SHELL ["/bin/bash","-c"]
 WORKDIR ${A_HOME}
 
 # Get updates and install dependencies
-RUN apt-get update && apt-get install wget tar xz-utils git nano xvfb -y && apt-get clean && rm -rf /var/lib/apt/list/*
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install wget tar xz-utils git nano xvfb time curl -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/list/* && \
+    rm -rf /root
+
+COPY docker /root
 
 # Get and install Arduino IDE
-RUN wget -q https://downloads.arduino.cc/arduino-${ARDUINO_VERSION}-linux64.tar.xz -O arduino.tar.xz && \
-    tar -xf arduino.tar.xz && \
+RUN curl http://downloads.arduino.cc/arduino-${VERSION}-linux64.tar.xz -o arduino.tar.xz
+RUN tar -xf arduino.tar.xz && \
+    mv arduino-${VERSION} ${ARDUINO_DIR} && \
     rm arduino.tar.xz && \
-    mv arduino-${ARDUINO_VERSION} ${ARDUINO_DIR} && \
     ln -s ${ARDUINO_DIR}/arduino ${A_BIN_DIR}/arduino && \
     ln -s ${ARDUINO_DIR}/arduino-builder ${A_BIN_DIR}/arduino-builder && \
-    echo "${ARDUINO_VERSION}" > ${A_ARDUINO_DIR}/version.txt
-
-# Install additional commands & directories
-RUN mkdir ${A_HOME}/Arduino && \
-    mkdir ${A_HOME}/Arduino/libraries && \
-    mkdir ${A_HOME}/Arduino/hardware && \
-    mkdir ${A_HOME}/Arduino/tools
-    mkdir ${A_HOME}/Arduino/build
-
-COPY hardware/* ${A_HOME}/Arduino/hardware
-COPY libraries/* ${A_HOME}/Arduino/libraries
-
-RUN arduino --pref build.path=${A_HOME}/Arduino/build \
-            --pref update.check=false
-            --board arduino:avr:pro:cpu=8MHzatmega328
+    echo "${AVERSION}" > ${A_ARDUINO_DIR}/version.txt && \
+    mkdir ${A_HOME}/.arduino15 && \
+    echo "boardsmanager.additional.urls=http://arduino.esp8266.com/versions/2.3.0/package_esp8266com_index.json,https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json,https://downloads.arduino.cc/packages/package_avr_3.6.0_index.json,https://github.com/watterott/ATmega328PB-Testing/raw/master/package_m328pb_index.json" >> ${A_HOME}/.arduino15/preferences.txt && \
+    ${A_BIN_DIR}/arduino --install-boards "m328pb:avr" && \
+    ${A_BIN_DIR}/arduino --pref build.path=${A_HOME}/Arduino/firmware/build \
+            --pref update.check=false \
+            --board m328pb:avr:atmega328pbic:speed=8mhz \
             --save-prefs
+
+WORKDIR /root/Arduino/firmware

@@ -1,0 +1,4 @@
+# Docker will ignore these
+
+docker/Arduino/firmware/build/*
+docker/bin/arduino*
