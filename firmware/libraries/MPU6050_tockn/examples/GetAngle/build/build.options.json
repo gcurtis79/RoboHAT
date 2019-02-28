@@ -1,0 +1,11 @@
+{
+  "additionalFiles": "",
+  "builtInLibrariesFolders": "/home/gcurtis79/bin/arduino-1.8.8/libraries",
+  "customBuildProperties": "build.warn_data_percentage=75,runtime.tools.avr-gcc.path=/home/gcurtis79/.arduino15/packages/arduino/tools/avr-gcc/5.4.0-atmel3.6.1-arduino2,runtime.tools.avr-gcc-5.4.0-atmel3.6.1-arduino2.path=/home/gcurtis79/.arduino15/packages/arduino/tools/avr-gcc/5.4.0-atmel3.6.1-arduino2,runtime.tools.avrdude.path=/home/gcurtis79/.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino14,runtime.tools.avrdude-6.3.0-arduino14.path=/home/gcurtis79/.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino14,runtime.tools.arduinoOTA.path=/home/gcurtis79/.arduino15/packages/arduino/tools/arduinoOTA/1.2.0,runtime.tools.arduinoOTA-1.2.0.path=/home/gcurtis79/.arduino15/packages/arduino/tools/arduinoOTA/1.2.0",
+  "fqbn": "arduino:avr:uno",
+  "hardwareFolders": "/home/gcurtis79/bin/arduino-1.8.8/hardware,/home/gcurtis79/.arduino15/packages,/home/gcurtis79/Arduino/hardware",
+  "otherLibrariesFolders": "/home/gcurtis79/Arduino/libraries",
+  "runtime.ide.version": "10808",
+  "sketchLocation": "/home/gcurtis79/Arduino/libraries/MPU6050_tockn/examples/GetAngle/GetAngle.ino",
+  "toolsFolders": "/home/gcurtis79/bin/arduino-1.8.8/tools-builder,/home/gcurtis79/bin/arduino-1.8.8/hardware/tools/avr,/home/gcurtis79/.arduino15/packages"
+}

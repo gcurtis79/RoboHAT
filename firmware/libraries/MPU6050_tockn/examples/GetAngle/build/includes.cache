@@ -1,0 +1,42 @@
+[
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "/home/gcurtis79/.arduino15/packages/arduino/hardware/avr/1.6.207/cores/arduino"
+  },
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "/home/gcurtis79/.arduino15/packages/arduino/hardware/avr/1.6.207/variants/standard"
+  },
+  {
+    "Sourcefile": "/home/gcurtis79/Arduino/libraries/MPU6050_tockn/examples/GetAngle/build/sketch/GetAngle.ino.cpp",
+    "Include": "MPU6050_tockn.h",
+    "Includepath": "/home/gcurtis79/Arduino/libraries/MPU6050_tockn/src"
+  },
+  {
+    "Sourcefile": "/home/gcurtis79/Arduino/libraries/MPU6050_tockn/examples/GetAngle/build/sketch/GetAngle.ino.cpp",
+    "Include": "Wire.h",
+    "Includepath": "/home/gcurtis79/.arduino15/packages/arduino/hardware/avr/1.6.207/libraries/Wire/src"
+  },
+  {
+    "Sourcefile": "/home/gcurtis79/Arduino/libraries/MPU6050_tockn/examples/GetAngle/build/sketch/GetAngle.ino.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "/home/gcurtis79/Arduino/libraries/MPU6050_tockn/src/MPU6050_tockn.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "/home/gcurtis79/.arduino15/packages/arduino/hardware/avr/1.6.207/libraries/Wire/src/Wire.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "/home/gcurtis79/.arduino15/packages/arduino/hardware/avr/1.6.207/libraries/Wire/src/utility/twi.c",
+    "Include": "",
+    "Includepath": ""
+  }
+]

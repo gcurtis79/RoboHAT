@@ -1,5 +1,7 @@
 firmware/build/
+firmware/bin/arduino-*/
 .vscode/
+arduino-*
 
 # Prerequisites
 *.d
