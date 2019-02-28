@@ -2,3 +2,8 @@
 
 docker/Arduino/firmware/build/*
 docker/bin/arduino*
+
+Dockerfile
+LICENSE
+README.md
+update.py
