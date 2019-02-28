@@ -1,32 +1,70 @@
-FROM debian:jessie-20190204
+FROM debian:stretch-slim
 
-RUN apt-get update \
-    &&  apt-get install -y --no-install-recommends \
-        nano \
-        arduino-mk \
-        bash-completion \
-        debhelper \
-        devscripts equivs \
-        dh-make \
-        dpkg-dev \
-        git \
-        software-properties-common \
-    &&  apt-get clean
+# Version of arduino IDE
+ARG VERSION="1.8.5"
 
-RUN mkdir -p /build/src
+# Version of Arduino IDE to download
+ENV ARDUINO_VERSION=$VERSION
 
-WORKDIR /build
+# Where Arduino IDE should be installed
+ENV ARDUINO_DIR="/opt/arduino"
 
-COPY hardware /build/
-RUN cat hardware/atmega328pb/avr/boards.txt >> /usr/share/arduino/hardware/arduino/boards.txt
-RUN cat hardware/atmega328pb/avr/programmers.txt >> /usr/share/arduino/hardware/arduino/programmers.txt
-COPY hardware/atmega328pb/avr/variants/atmega328pb /usr/share/arduino/hardware/arduino/variants/
-COPY hardware/tools/avr/avr/* /usr/share/arduino/hardware/tools/avr/avr/
-COPY hardware/tools/avr/lib/* /lib/
+# Arduino built-in examples
+ENV ARDUINO_EXAMPLES="${ARDUINO_DIR}/examples"
 
-ADD .bashrc /root/.bashrc
-ADD .profile /root/.profile
+# Arduino hardware
+ENV ARDUINO_HARDWARE="${ARDUINO_DIR}/hardware"
 
-ADD firmware /build
+# Arduino built-in libraries
+ENV ARDUINO_LIBS="${ARDUINO_DIR}/libraries"
 
-SHELL [ "/bin/bash", "--login"]
+# Arduino tools
+ENV ARDUINO_TOOLS="${ARDUINO_HARDWARE}/tools"
+
+# Arduino tools-builder
+ENV ARDUINO_TOOLS_BUILDER="${ARDUINO_DIR}/tools-builder"
+
+# Arduino boards FQBN prefix
+ENV A_FQBN="arduino:avr"
+
+# Binary directory
+ENV A_BIN_DIR="/usr/local/bin"
+
+# Tools directory
+ENV A_TOOLS_DIR="/opt/tools"
+
+# Home directory
+ENV A_HOME="/root"
+
+# Shell
+SHELL ["/bin/bash","-c"]
+
+# Working directory
+WORKDIR ${A_HOME}
+
+# Get updates and install dependencies
+RUN apt-get update && apt-get install wget tar xz-utils git nano xvfb -y && apt-get clean && rm -rf /var/lib/apt/list/*
+
+# Get and install Arduino IDE
+RUN wget -q https://downloads.arduino.cc/arduino-${ARDUINO_VERSION}-linux64.tar.xz -O arduino.tar.xz && \
+    tar -xf arduino.tar.xz && \
+    rm arduino.tar.xz && \
+    mv arduino-${ARDUINO_VERSION} ${ARDUINO_DIR} && \
+    ln -s ${ARDUINO_DIR}/arduino ${A_BIN_DIR}/arduino && \
+    ln -s ${ARDUINO_DIR}/arduino-builder ${A_BIN_DIR}/arduino-builder && \
+    echo "${ARDUINO_VERSION}" > ${A_ARDUINO_DIR}/version.txt
+
+# Install additional commands & directories
+RUN mkdir ${A_HOME}/Arduino && \
+    mkdir ${A_HOME}/Arduino/libraries && \
+    mkdir ${A_HOME}/Arduino/hardware && \
+    mkdir ${A_HOME}/Arduino/tools
+    mkdir ${A_HOME}/Arduino/build
+
+COPY hardware/* ${A_HOME}/Arduino/hardware
+COPY libraries/* ${A_HOME}/Arduino/libraries
+
+RUN arduino --pref build.path=${A_HOME}/Arduino/build \
+            --pref update.check=false
+            --board arduino:avr:pro:cpu=8MHzatmega328
+            --save-prefs
