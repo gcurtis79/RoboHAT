@@ -1,4 +1,5 @@
 firmware/build/
+.vscode/
 
 # Prerequisites
 *.d
