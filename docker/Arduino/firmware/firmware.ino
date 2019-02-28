@@ -1,6 +1,7 @@
-#include <Arduino.h>
+#include "Arduino.h"
 #include <MPU6050_tockn.h>
 #include <Wire.h>
+#include <Wire1.h>
 #include <EveryTimer.h>
 #include <TimeLib.h>
 
