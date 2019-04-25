@@ -1,4 +1,6 @@
-Project stalled because I received defective motor driver ICs.
+```diff
+- Project stalled because I received defective motor driver ICs.</span>
+```
 
 Bear with me on this project, I'm very new to this stuff, but I enjoy the learning process.  
 # RoboHAT
