@@ -1,3 +1,5 @@
+Project stalled because I received defective motor driver ICs.
+
 Bear with me on this project, I'm very new to this stuff, but I enjoy the learning process.  
 # RoboHAT
 This will be the repository of things needed to work with, or at least get started with, my RoboHAT Raspberry Pi HAT for robot control.
